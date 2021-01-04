@@ -43,13 +43,13 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "ENABLE_LOGGING", "false"
-            buildConfigField "String", "BASE_URL", '"https://dev.meemee.online"'
+            buildConfigField "String", "BASE_URL", '"https://dummyapi.io"'
         }
 
         debug {
             debuggable true
             buildConfigField "boolean", "ENABLE_LOGGING", "true"
-            buildConfigField "String", "BASE_URL", '"https://dev.meemee.online"'
+            buildConfigField "String", "BASE_URL", '"https://dummyapi.io"'
         }
     }
 }
@@ -86,4 +86,9 @@ dependencies {
 
     // multi-dex
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // Room
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+    implementation "androidx.room:room-ktx:2.2.5"
 }

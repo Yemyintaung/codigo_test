@@ -7,12 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yma.banks.adapter.BankItemAdapter
-import com.yma.banks.detail.BankDetailActivity
+import com.yma.banks.adapter.PersonItemAdapter
+import com.yma.banks.detail.PersonDetailActivity
 import com.yma.banks.di.kodeinViewModel
-import com.yma.banks.list.BankListViewModel
-import com.yma.banks.model.BanksApiResponse
-import com.yma.banks.model.BanksApiResponseContainer
+import com.yma.banks.viewmodel.PersonListViewModel
+import com.yma.banks.model.PersonApiResponse
+import com.yma.banks.model.PersonApiResponseContainer
 import com.yma.banks.utils.VerticalSpaceItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.Kodein
@@ -21,28 +21,25 @@ import org.kodein.di.android.closestKodein
 
 
 const val TO_DETAIL = "com.yma.bank.detail"
-const val SAVE_LIST = "com.yma.bank.bank.list"
+const val SAVE_LIST = "com.yma.bank.person.list"
 
 class MainActivity : AppCompatActivity(), KodeinAware {
-
-
-    override val kodein : Kodein by closestKodein()
-    private val viewModel: BankListViewModel by kodeinViewModel()
-    private val bankList: ArrayList<BanksApiResponse> = arrayListOf()
+    override val kodein: Kodein by closestKodein()
+    private val viewModel: PersonListViewModel by kodeinViewModel()
+    private val personList: ArrayList<PersonApiResponse> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.banksLiveData.observe(
+        viewModel.personLiveData.observe(
             this,
-            Observer<BanksApiResponseContainer>(::onRetrieveBankList)
+            Observer<PersonApiResponseContainer>(::onRetrievepersonList)
         )
         viewModel.errorLiveData.observe(
             this,
-            Observer<String>(::onRetrieveBankList)
+            Observer<String>(::onRetrievepersonList)
         )
-
-        viewModel.getBankListFromApi()
+        viewModel.getPersonListFromApi()
     }
 
     private fun initializeRecycleViewLinear() {
@@ -54,26 +51,30 @@ class MainActivity : AppCompatActivity(), KodeinAware {
             addItemDecoration(VerticalSpaceItemDecoration(20))
         }
 
-        val adapter = BankItemAdapter(bankList) { item: BanksApiResponse ->
-            bankItemClicked(item)
+        val adapter = PersonItemAdapter(personList) { item: PersonApiResponse ->
+            personItemClicked(item)
         }
         activity_main_recycler.adapter = adapter
     }
 
-    private fun bankItemClicked(item: BanksApiResponse) {
-        val intent = Intent(this, BankDetailActivity::class.java).apply {
+    private fun personItemClicked(item: PersonApiResponse) {
+        val intent = Intent(this, PersonDetailActivity::class.java).apply {
             putExtra(TO_DETAIL, item)
         }
         startActivity(intent)
     }
 
-    private fun onRetrieveBankList(data: Any?) {
+    private fun onRetrievepersonList(data: Any?) {
         when (data) {
-            is BanksApiResponseContainer -> {
-                bankList.clear()
-                data.data.forEach { bankList.add(it) }
+            is PersonApiResponseContainer -> {
+                personList.clear()
+                data.data.forEach { personList.add(it) }
                 initializeRecycleViewLinear()
                 activity_main_recycler.adapter!!.notifyDataSetChanged()
+
+                if(personList.isEmpty()){
+                    Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show()
+                }
             }
             is String -> {
                 Toast.makeText(this, "$data", Toast.LENGTH_SHORT).show()
@@ -85,14 +86,14 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         super.onSaveInstanceState(outState)
 
         // Save the state of item position
-        outState.putParcelableArrayList(SAVE_LIST, bankList)
+        outState.putParcelableArrayList(SAVE_LIST, personList)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
         // Read the state of item position
-        bankList.clear()
-        bankList.addAll(savedInstanceState.getParcelableArrayList(SAVE_LIST)!!)
+        personList.clear()
+        personList.addAll(savedInstanceState.getParcelableArrayList(SAVE_LIST)!!)
     }
 }

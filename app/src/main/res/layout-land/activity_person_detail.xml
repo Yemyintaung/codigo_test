@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="com.yma.banks.model.BanksApiResponse" />
+            type="com.yma.banks.model.PersonApiResponse" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -17,9 +17,9 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/activity_bank_item_image"
-            imageUrl='@{item.logoUrl ?? ""}'
+            imageUrl='@{item.picture ?? ""}'
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true" />
 
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:padding="@dimen/widget_layout_padding"
-                    android:text='@{item.name ?? ""}'
+                    android:text='@{item.firstName ?? ""}'
                     android:textSize="@dimen/list_body_text"
                     android:textStyle="bold" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -62,7 +62,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/widget_layout_padding"
-                    android:text="@string/description"
+                    android:text="@string/email"
                     android:layout_weight="1"
                     android:textSize="@dimen/list_body_text" />
 
@@ -71,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/widget_layout_padding"
-                    android:text='@{item.description ?? ""}'
+                    android:text='@{item.email ?? ""}'
                     android:textSize="@dimen/list_body_text"
                     android:layout_weight="2"
                     android:textStyle="bold" />
@@ -86,7 +86,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/widget_layout_padding"
-                    android:text="@string/type"
+                    android:text="@string/title"
                     android:layout_weight="1"
                     android:textSize="@dimen/list_body_text" />
 
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:padding="@dimen/widget_layout_padding"
-                    android:text='@{item.type ?? ""}'
+                    android:text='@{item.title ?? ""}'
                     android:textSize="@dimen/list_body_text"
                     android:textStyle="bold" />
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,14 +1,12 @@
 package com.yma.banks.viewholder
 
-import android.app.Activity
-import android.util.DisplayMetrics
 import androidx.recyclerview.widget.RecyclerView
-import com.yma.banks.databinding.ActivityBankItemBinding
-import com.yma.banks.model.BanksApiResponse
+import com.yma.banks.databinding.ActivityPersonItemBinding
+import com.yma.banks.model.PersonApiResponse
 
-class BankItemViewHolder(private val binding: ActivityBankItemBinding) :
+class PersonItemViewHolder(private val binding: ActivityPersonItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: BanksApiResponse) {
+    fun bind(item: PersonApiResponse) {
         /*val act = binding.activityBankItemName.context as Activity
         val displayMetrics = DisplayMetrics()
         act.windowManager.defaultDisplay.getMetrics(displayMetrics)

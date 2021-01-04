@@ -7,19 +7,18 @@ import androidx.multidex.MultiDexApplication
 import com.yma.banks.di.ViewModelFactory
 import com.yma.banks.di.bindViewModel
 import com.yma.banks.di.networkModule
-import com.yma.banks.list.BankListViewModel
-import com.yma.banks.repository.banks.BanksRepository
-import com.yma.banks.repository.banks.BanksRepositoryImpl
+import com.yma.banks.viewmodel.PersonListViewModel
+import com.yma.banks.repository.person.PersonRepository
+import com.yma.banks.repository.person.PersonRepositoryImpl
+import com.yma.banks.room.AppDatabase
+import com.yma.banks.room.DatabaseBuilder
 import com.yma.banks.utils.SchedulerProvider
 import com.yma.banks.utils.SchedulerProviderImpl
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
 import org.kodein.di.direct
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
 
 class App : MultiDexApplication(), KodeinAware {
     override val kodein = Kodein.lazy {
@@ -27,10 +26,15 @@ class App : MultiDexApplication(), KodeinAware {
         bind<Context>("ApplicationContext") with singleton { this@App.applicationContext }
         import(networkModule)
         bind<SchedulerProvider>() with singleton { SchedulerProviderImpl() }
-        bind<BanksRepository>() with singleton { BanksRepositoryImpl(instance(), instance()) }
+        bind<PersonRepository>() with singleton { PersonRepositoryImpl(instance(), instance()) }
         bind<ViewModelProvider.Factory>() with singleton { ViewModelFactory(kodein.direct) }
-        bindViewModel<BankListViewModel>() with provider {
-            BankListViewModel(
+
+        bind<AppDatabase>() with eagerSingleton {
+            DatabaseBuilder.getInstance(applicationContext)
+        }
+        bindViewModel<PersonListViewModel>() with provider {
+            PersonListViewModel(
+                instance(),
                 instance(),
                 instance()
             )

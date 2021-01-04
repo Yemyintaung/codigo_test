@@ -3,7 +3,7 @@ package com.yma.banks.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.yma.banks.BuildConfig
-import com.yma.banks.api.BanksApiService
+import com.yma.banks.api.PersonApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -24,7 +24,7 @@ private const val MODULE_NAME = "Network Module"
 val networkModule = Kodein.Module(MODULE_NAME, false) {
     bind<OkHttpClient>() with singleton { getOkHttpClient() }
     bind<Retrofit>() with singleton { getRetrofit(instance()) }
-    bind<BanksApiService>() with singleton { getBanksApiService(instance()) }
+    bind<PersonApiService>() with singleton { getBanksApiService(instance()) }
 }
 
 val gson: Gson = GsonBuilder().setLenient().create()
@@ -47,8 +47,7 @@ private fun getOkHttpClient(): OkHttpClient {
             val original: Request = chain.request()
 
             val request: Request = original.newBuilder()
-                .header("app-id", "wnV24w-O8SJiHqk2DYzynz")
-                .header("secret-key", "fq7emqsxGUdXvZ6ck2mcH6Tvf-GbUgZZlcB1UMKn7wb99ny")
+                .header("app-id", "5ff330809f8b8c42d508a650")
                 .method(original.method(), original.body())
                 .build()
 
@@ -67,5 +66,5 @@ private fun getRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder
     .client(okHttpClient)
     .build()
 
-private fun getBanksApiService(retrofit: Retrofit): BanksApiService =
-    retrofit.create(BanksApiService::class.java)
+private fun getBanksApiService(retrofit: Retrofit): PersonApiService =
+    retrofit.create(PersonApiService::class.java)
