@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.yma.banks.model.BanksApiResponse" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="@dimen/widget_layout_margin"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/activity_bank_item_image"
+            imageUrl='@{item.logoUrl ?? ""}'
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/widget_layout_margin"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/widget_layout_padding"
+                    android:layout_weight="1"
+                    android:text="@string/name"
+                    android:textSize="@dimen/list_body_text" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/activity_bank_detail_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="@dimen/widget_layout_padding"
+                    android:text='@{item.name ?? ""}'
+                    android:textSize="@dimen/list_body_text"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/widget_layout_padding"
+                    android:text="@string/description"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/list_body_text" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/activity_bank_detail_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/widget_layout_padding"
+                    android:text='@{item.description ?? ""}'
+                    android:textSize="@dimen/list_body_text"
+                    android:layout_weight="2"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/widget_layout_padding"
+                    android:text="@string/type"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/list_body_text" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/activity_bank_detail_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:padding="@dimen/widget_layout_padding"
+                    android:text='@{item.type ?? ""}'
+                    android:textSize="@dimen/list_body_text"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
